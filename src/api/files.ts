@@ -1,5 +1,5 @@
 import axios from 'axios';
-import sharp from 'sharp';
+import { imageSize } from 'image-size';
 
 export async function getFileContent(url: string): Promise<[Buffer | null, string | null]> {
   if (url.startsWith('data:')) {
@@ -20,8 +20,8 @@ export async function getFileContent(url: string): Promise<[Buffer | null, strin
 }
 
 export async function getImageSize(fileContent: Buffer): Promise<[number, number]> {
-  const metadata = await sharp(fileContent).metadata();
-  return [metadata.width || 0, metadata.height || 0];
+  const dimensions = imageSize(fileContent);
+  return [dimensions.width || 0, dimensions.height || 0];
 }
 
 export function determineFileUseCase(mimeType: string): string {
