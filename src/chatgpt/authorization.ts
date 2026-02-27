@@ -18,8 +18,6 @@ export function getReqToken(originToken: string, seed?: string): string {
         try {
           fs.writeFileSync(globals.SEED_MAP_FILE, JSON.stringify(globals.seedMap, null, 4));
         } catch {}
-      } else {
-        return globals.seedMap[seed].token;
       }
       return globals.seedMap[seed].token;
     }
